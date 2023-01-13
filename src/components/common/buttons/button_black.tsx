@@ -3,9 +3,15 @@ const Button = styled.button`
   backgournd-color: black;
 `;
 export const ButtonBlack = ({
+  disabled,
   text,
   onClick,
 }: {
+  disabled: boolean;
   text: string;
   onClick: () => void;
-}) => <Button onClick={onClick}>{text}</Button>;
+}) => (
+  <Button disabled={disabled} onClick={onClick}>
+    {text}
+  </Button>
+);
