@@ -1,6 +1,10 @@
 import styled from 'styled-components';
+const Div = styled.div`
+  padding: 3px;
+  maring: 5px;
+`;
 const Input = styled.input`
-  backgournd-color: red;
+  width: 300px;
 `;
 export const InputLarge = ({
   onChange,
@@ -14,13 +18,13 @@ export const InputLarge = ({
   value: string;
 }) => {
   return (
-    <div>
+    <Div>
       <Input
         placeholder={placeholder}
         onChange={onChange}
         value={value}
         type={type}
       />
-    </div>
+    </Div>
   );
 };
