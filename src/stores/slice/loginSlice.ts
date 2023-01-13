@@ -1,15 +1,12 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { getLoginApi, type LoginParamType } from '../../api/loginApi';
 import { RootState } from '../store';
 
-interface LoginParamType {
-  email: string;
-  password: string;
-}
-const postLogin = createAsyncThunk(
-  'login/postLoginStatus',
+export const getLogin = createAsyncThunk(
+  'login/getLoginStatus',
   async (loginParam: LoginParamType) => {
-    // const response = await userAPI.fetchById(userId);
-    // return response.data;
+    const response = await getLoginApi(loginParam);
+    return response.data;
   },
 );
 
@@ -30,7 +27,7 @@ export const loginSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(postLogin.fulfilled, (state, action) => {});
+    builder.addCase(getLogin.fulfilled, (state, action) => {});
   },
 });
 

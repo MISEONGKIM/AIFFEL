@@ -10,7 +10,7 @@ export const router = createBrowserRouter([
     errorElement: <ErrorPage />,
   },
   {
-    path: '/profile ',
+    path: '/profile',
     element: <ProfilePage />,
     errorElement: <ErrorPage />,
   },
