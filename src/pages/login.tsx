@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { LoginRequestStatus } from '../api/loginApi';
+import { RequestStatus } from '../api/common';
 import { ButtonBlack } from '../components/common/buttons';
 import { InputMiddle } from '../components/common/inputs';
 import { idPlaceholder, passwordPlaceholder } from '../constants/placeholder';
@@ -56,12 +56,12 @@ export const LoginPage = () => {
   const error = useAppSelector(loginError);
   const onClick = (loginParam: Parameters<typeof getLogin>[0]) => async () => {
     await dispatch(getLogin(loginParam));
-    if (requestStatus === LoginRequestStatus.FAILURE) {
+    if (requestStatus === RequestStatus.FAILURE) {
       ////////////됐다안됐다가함. .ㅠ
       infoAlert({ ...error });
       return;
     }
-    requestStatus === LoginRequestStatus.SUCCESS && navigate('/forum');
+    requestStatus === RequestStatus.SUCCESS && navigate('/forum');
   };
 
   return (
