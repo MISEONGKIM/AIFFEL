@@ -1,12 +1,19 @@
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { ForumInfo } from '../../stores/slice/forumSlice';
 
 const Tag = styled.div`
   background-color: ${({ color }: { color: string }) => color};
 `;
-export const ForumListItem = (data: ForumInfo) => {
+export const ForumListItem = ({
+  data,
+  onClick,
+}: {
+  data: ForumInfo;
+  onClick: (id: number) => void;
+}) => {
   return (
-    <li>
+    <li onClick={() => onClick(data.id)}>
       <p>{data.title}</p>
       <div>
         {data.content.length < 30
