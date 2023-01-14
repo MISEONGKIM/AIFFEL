@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { UserInfo } from './user_info';
+import { UserInfo } from '../../components/forum_header';
 
 const Div = styled.div``;
 export const ForumHeader = () => {

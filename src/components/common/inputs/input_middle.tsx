@@ -1,12 +1,13 @@
+import React from 'react';
 import styled from 'styled-components';
 const Div = styled.div`
   padding: 3px;
   maring: 5px;
 `;
 const Input = styled.input`
-  width: 700px;
+  width: 300px;
 `;
-export const InputLarge = ({
+export const InputMiddle = ({
   onChange,
   placeholder,
   type,

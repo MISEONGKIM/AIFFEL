@@ -45,10 +45,12 @@ export const loginSlice = createSlice({
         state.requestStatus = LoginRequestStatus.LOADING;
       })
       .addCase(getLogin.fulfilled, (state, action) => {
-        const token = '';
         state.requestStatus = LoginRequestStatus.SUCCESS;
         console.log(action.payload);
-        state.loginInfo = { token, username: action.payload[0].username };
+        state.loginInfo = {
+          token: 'aaa',
+          username: action.payload[0].username,
+        };
       })
       .addCase(getLogin.rejected, (state, action) => {
         state.requestStatus = LoginRequestStatus.FAILURE;

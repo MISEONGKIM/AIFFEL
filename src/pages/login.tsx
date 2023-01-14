@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { LoginRequestStatus } from '../api/loginApi';
 import { ButtonBlack } from '../components/common/buttons';
-import { InputLarge } from '../components/common/inputs';
+import { InputMiddle } from '../components/common/inputs';
 import { idPlaceholder, passwordPlaceholder } from '../constants/placeholder';
 import {
   emailValidationMsg,
@@ -21,29 +21,26 @@ export const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [infoMessage, setInfomessage] = useState('');
-  const [disabledButton, setDisabledButton] = useState(true);
-  const setDisabledButtonFor = () => {
-    setDisabledButton(
-      !(
-        infoMessage.length === 0 &&
-        emailValidation(email) &&
-        passwordValidation(password)
-      ),
-    );
-  };
-  const onChangeEmail: Parameters<typeof InputLarge>[0]['onChange'] = (e) => {
-    ///useCallback ?
-    setEmail((state) => (state = e.target.value));
-    setInfomessage(
-      (state) =>
-        (state = emailValidation(e.target.value) ? '' : emailValidationMsg),
-    );
-    setDisabledButtonFor();
-  };
+  const disabledButton = !(
+    infoMessage.length === 0 &&
+    emailValidation(email) &&
+    passwordValidation(password)
+  );
 
-  const onChangePassword: Parameters<typeof InputLarge>[0]['onChange'] = (
-    e,
-  ) => {
+  const onChangeEmail = useCallback<React.ChangeEventHandler<HTMLInputElement>>(
+    (e) => {
+      setEmail((state) => (state = e.target.value));
+      setInfomessage(
+        (state) =>
+          (state = emailValidation(e.target.value) ? '' : emailValidationMsg),
+      );
+    },
+    [],
+  );
+
+  const onChangePassword = useCallback<
+    React.ChangeEventHandler<HTMLInputElement>
+  >((e) => {
     setPassword((state) => (state = e.target.value));
     setInfomessage(
       (state) =>
@@ -51,8 +48,7 @@ export const LoginPage = () => {
           ? ''
           : passwordValidationMsg),
     );
-    setDisabledButtonFor();
-  };
+  }, []);
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -70,13 +66,13 @@ export const LoginPage = () => {
 
   return (
     <div>
-      <InputLarge
+      <InputMiddle
         onChange={onChangeEmail}
         placeholder={idPlaceholder}
         type={'email'}
         value={email}
       />
-      <InputLarge
+      <InputMiddle
         onChange={onChangePassword}
         placeholder={passwordPlaceholder}
         type={'password'}
