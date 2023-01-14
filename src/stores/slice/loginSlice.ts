@@ -19,14 +19,14 @@ export const getLogin = createAsyncThunk(
 );
 
 interface LoginInfo {
-  token: string;
-  username: string;
+  token?: string;
+  username?: string;
 }
 
 interface LoginState {
   requestStatus: LoginRequestStatus;
-  loginInfo: LoginInfo | {};
-  error: SerializedError | {};
+  loginInfo: LoginInfo;
+  error: SerializedError;
 }
 
 const initialState: LoginState = {
@@ -47,7 +47,8 @@ export const loginSlice = createSlice({
       .addCase(getLogin.fulfilled, (state, action) => {
         const token = '';
         state.requestStatus = LoginRequestStatus.SUCCESS;
-        state.loginInfo = { token, username: action.payload.username };
+        console.log(action.payload);
+        state.loginInfo = { token, username: action.payload[0].username };
       })
       .addCase(getLogin.rejected, (state, action) => {
         state.requestStatus = LoginRequestStatus.FAILURE;
