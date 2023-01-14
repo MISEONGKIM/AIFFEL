@@ -15,11 +15,11 @@ export const getForumList = createAsyncThunk(
   },
 );
 
-interface Tag {
+export interface Tag {
   name: string;
   color: string;
 }
-interface ForumInfo {
+export interface ForumInfo {
   id: number;
   title: string;
   content: string;

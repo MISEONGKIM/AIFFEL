@@ -1,9 +1,9 @@
 import { useState, useCallback } from 'react';
 import { searchPlaceholder } from '../../constants/placeholder';
+import { infoAlert } from '../../utils/alert';
 import { ButtonBlack } from '../common/buttons';
 import { InputLarge } from '../common/inputs';
-
-export const Search = () => {
+export const Search = ({ onSearch }: { onSearch: (value: string) => void }) => {
   const [searchText, setSearchText] = useState('');
   const onChange = useCallback<React.ChangeEventHandler<HTMLInputElement>>(
     (e) => {
@@ -11,6 +11,17 @@ export const Search = () => {
     },
     [],
   );
+  const onClick = useCallback(
+    (searchText: string) => {
+      if (searchText.length === 0) {
+        infoAlert({ message: '검색어를 입력해주세요.' });
+        return;
+      }
+      onSearch(searchText);
+    },
+    [onSearch],
+  );
+
   return (
     <div>
       <InputLarge
@@ -21,10 +32,8 @@ export const Search = () => {
       />
       <ButtonBlack
         disabled={false}
-        text={''}
-        onClick={function (): void {
-          throw new Error('Function not implemented.');
-        }}
+        text={'검색'}
+        onClick={() => onClick(searchText)}
       />
     </div>
   );
