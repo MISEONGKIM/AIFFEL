@@ -1,11 +1,5 @@
 import axios from 'axios';
-const DEFAULT_URL = 'http://127.0.0.1:5000';
-
-export enum LoginRequestStatus {
-  LOADING = 'loading',
-  SUCCESS = 'success',
-  FAILURE = 'failure',
-}
+import { DEFAULT_URL } from './common';
 
 export interface LoginParamType {
   email: string;
