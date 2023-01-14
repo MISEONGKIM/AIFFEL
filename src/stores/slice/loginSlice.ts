@@ -1,5 +1,13 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { getLoginApi, type LoginParamType } from '../../api/loginApi';
+import {
+  createAsyncThunk,
+  createSlice,
+  SerializedError,
+} from '@reduxjs/toolkit';
+import {
+  getLoginApi,
+  LoginRequestStatus,
+  type LoginParamType,
+} from '../../api/loginApi';
 import { RootState } from '../store';
 
 export const getLogin = createAsyncThunk(
@@ -14,12 +22,17 @@ interface LoginInfo {
   token: string;
   username: string;
 }
+
 interface LoginState {
+  requestStatus: LoginRequestStatus;
   loginInfo: LoginInfo | {};
+  error: SerializedError | {};
 }
 
 const initialState: LoginState = {
+  requestStatus: LoginRequestStatus.LOADING,
   loginInfo: {},
+  error: {},
 };
 
 export const loginSlice = createSlice({
@@ -27,12 +40,23 @@ export const loginSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(getLogin.fulfilled, (state, action) => {});
+    builder
+      .addCase(getLogin.pending, (state) => {
+        state.requestStatus = LoginRequestStatus.LOADING;
+      })
+      .addCase(getLogin.fulfilled, (state, action) => {
+        const token = '';
+        state.requestStatus = LoginRequestStatus.SUCCESS;
+        state.loginInfo = { token, username: action.payload.username };
+      })
+      .addCase(getLogin.rejected, (state, action) => {
+        state.requestStatus = LoginRequestStatus.FAILURE;
+        state.error = action.error;
+      });
   },
 });
-
-export const {} = loginSlice.actions;
-
 export const loginInfo = (state: RootState) => state.login.loginInfo;
+export const loginState = (state: RootState) => state.login.requestStatus;
+export const loginError = (state: RootState) => state.login.error;
 
 export default loginSlice.reducer;

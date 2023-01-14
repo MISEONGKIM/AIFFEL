@@ -1,3 +1,1 @@
-export const Loading = () => {
-  <div>로딩중..</div>;
-};
+export const Loading = () => <div>로딩중..</div>;
