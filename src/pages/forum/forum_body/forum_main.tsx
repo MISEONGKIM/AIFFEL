@@ -23,7 +23,7 @@ export const ForumMain = () => {
     if (result.length === 0) infoAlert({ message: '검색된 내역이 없습니다.' });
   };
   useEffect(() => {
-    dispatch(getForumList({ page: 1, limit: 5 }));
+    dispatch(getForumList({ _page: 1, _limit: 5 }));
   }, [dispatch]);
 
   if (requestStatus === RequestStatus.LOADING) return <Loading />;

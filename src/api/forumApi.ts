@@ -2,8 +2,8 @@ import axios from 'axios';
 import { DEFAULT_URL } from './common';
 
 export interface ForumParamType {
-  page: number;
-  limit: number;
+  _page: number;
+  _limit: number;
 }
 
 export const getForumApi = async (forumParam: ForumParamType) => {
