@@ -9,10 +9,19 @@ import {
   emailValidationMsg,
   passwordValidationMsg,
 } from '../constants/validtaion';
-import { useAppDispatch, useAppSelector } from '../stores/hooks';
-import { getLogin, loginError, loginState } from '../stores/slice/loginSlice';
-import { infoAlert } from '../utils/alert';
+import { useAppDispatch } from '../stores/hooks';
+import { getLogin } from '../stores/slice/loginSlice';
 import { emailValidation, passwordValidation } from '../utils/validation';
+const OutDiv = styled.div`
+  width: 100%;
+  height: 100%;
+  position: relative;
+`;
+const InDiv = styled.div`
+  position: absolute;
+  left: 50%;
+  top: 50%;
+`;
 const Text = styled.p`
   color: red;
 `;
@@ -52,38 +61,37 @@ export const LoginPage = () => {
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const requestStatus = useAppSelector(loginState);
-  const error = useAppSelector(loginError);
-  const onClick = (loginParam: Parameters<typeof getLogin>[0]) => async () => {
-    await dispatch(getLogin(loginParam));
-    if (requestStatus === RequestStatus.FAILURE) {
-      ////////////됐다안됐다가함. .ㅠ
-      infoAlert({ ...error });
-      return;
-    }
-    requestStatus === RequestStatus.SUCCESS && navigate('/forum');
-  };
+
+  const onClick = useCallback(
+    (loginParam: Parameters<typeof getLogin>[0]) => async () => {
+      const result = await dispatch(getLogin(loginParam));
+      result.meta.requestStatus === RequestStatus.SUCCESS && navigate('/forum');
+    },
+    [dispatch, navigate],
+  );
 
   return (
-    <div>
-      <InputMiddle
-        onChange={onChangeEmail}
-        placeholder={idPlaceholder}
-        type={'email'}
-        value={email}
-      />
-      <InputMiddle
-        onChange={onChangePassword}
-        placeholder={passwordPlaceholder}
-        type={'password'}
-        value={password}
-      />
-      <ButtonBlack
-        disabled={disabledButton}
-        text={'로그인'}
-        onClick={onClick({ email, password })}
-      />
-      <Text>{infoMessage}</Text>
-    </div>
+    <OutDiv>
+      <InDiv>
+        <InputMiddle
+          onChange={onChangeEmail}
+          placeholder={idPlaceholder}
+          type={'email'}
+          value={email}
+        />
+        <InputMiddle
+          onChange={onChangePassword}
+          placeholder={passwordPlaceholder}
+          type={'password'}
+          value={password}
+        />
+        <ButtonBlack
+          disabled={disabledButton}
+          text={'로그인'}
+          onClick={onClick({ email, password })}
+        />
+        <Text>{infoMessage}</Text>
+      </InDiv>
+    </OutDiv>
   );
 };

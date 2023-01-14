@@ -5,6 +5,7 @@ import {
 } from '@reduxjs/toolkit';
 import { RequestStatus } from '../../api/common';
 import { getLoginApi, type LoginParamType } from '../../api/loginApi';
+import { infoAlert } from '../../utils/alert';
 import { RootState } from '../store';
 
 export const getLogin = createAsyncThunk(
@@ -52,6 +53,7 @@ export const loginSlice = createSlice({
       .addCase(getLogin.rejected, (state, action) => {
         state.requestStatus = RequestStatus.FAILURE;
         state.error = action.error;
+        infoAlert({ message: action.error.message });
       });
   },
 });
