@@ -5,7 +5,7 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { store } from './stores/store';
-import { LoginPage } from './pages';
+import { ErrorPage, LoginPage } from './pages';
 import { ForumPage } from './pages/forum';
 import { ProfilePage } from './pages/profile';
 
@@ -20,6 +20,7 @@ root.render(
           <Route path="/" element={<LoginPage />} />
           <Route path="/forum" element={<ForumPage />} />
           <Route path="/profile" element={<ProfilePage />} />
+          <Route path="*" element={<ErrorPage />} />
         </Routes>
       </BrowserRouter>
     </Provider>
