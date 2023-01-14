@@ -3,6 +3,7 @@ import { RequestStatus } from '../../../api/common';
 import { Loading } from '../../../components/common/loading';
 import { ForumList } from '../../../components/forum_main/forum_list';
 import { ForumPagination } from '../../../components/forum_main/forum_pagination';
+import { ForumWriteButton } from '../../../components/forum_main/forum_write_button';
 import { Search } from '../../../components/forum_main/search';
 import { useAppDispatch, useAppSelector } from '../../../stores/hooks';
 import {
@@ -29,6 +30,7 @@ export const ForumMain = () => {
   return (
     <div>
       <Search onSearch={onSearch} />
+      <ForumWriteButton />
       <ForumList list={list} />
       <ForumPagination />
     </div>

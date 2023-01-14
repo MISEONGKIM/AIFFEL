@@ -1,9 +1,9 @@
-import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { ForumInfo } from '../../stores/slice/forumSlice';
 
 const Tag = styled.div`
   background-color: ${({ color }: { color: string }) => color};
+  width: 50px;
 `;
 export const ForumListItem = ({
   data,
@@ -20,7 +20,7 @@ export const ForumListItem = ({
           ? data.content
           : data.content.slice(0, 30) + '...'}
       </div>
-      <div>{data.isLiked}</div>
+      <div>등록시간</div>
       <Tag color={data.tag.color}>{data.tag.name}</Tag>
     </li>
   );
