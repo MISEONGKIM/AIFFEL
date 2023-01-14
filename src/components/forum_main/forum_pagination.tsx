@@ -1,10 +1,17 @@
 import styled from 'styled-components';
 
-export const ForumPagination = () => {
+export const ForumPagination = ({
+  onClick,
+}: {
+  onClick: (page: number) => void;
+}) => {
   return (
     <>
       <Nav>
-        <Button>{1}</Button>
+        <Button onClick={() => onClick(1)}>{1}</Button>
+        <Button onClick={() => onClick(2)}>{2}</Button>
+        <Button onClick={() => onClick(3)}>{3}</Button>
+        <Button onClick={() => onClick(4)}>{4}</Button>
       </Nav>
     </>
   );
