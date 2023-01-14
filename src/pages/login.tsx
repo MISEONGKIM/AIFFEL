@@ -1,5 +1,7 @@
 import { useCallback, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { LoginRequestStatus } from '../api/loginApi';
 import { ButtonBlack } from '../components/common/buttons';
 import { InputLarge } from '../components/common/inputs';
 import { idPlaceholder, passwordPlaceholder } from '../constants/placeholder';
@@ -7,8 +9,9 @@ import {
   emailValidationMsg,
   passwordValidationMsg,
 } from '../constants/validtaion';
-import { useAppDispatch } from '../stores/hooks';
-import { getLogin } from '../stores/slice/loginSlice';
+import { useAppDispatch, useAppSelector } from '../stores/hooks';
+import { getLogin, loginError, loginState } from '../stores/slice/loginSlice';
+import { infoAlert } from '../utils/alert';
 import { emailValidation, passwordValidation } from '../utils/validation';
 const Text = styled.p`
   color: red;
@@ -19,7 +22,6 @@ export const LoginPage = () => {
   const [password, setPassword] = useState('');
   const [infoMessage, setInfomessage] = useState('');
   const [disabledButton, setDisabledButton] = useState(true);
-
   const setDisabledButtonFor = () => {
     setDisabledButton(
       !(
@@ -52,9 +54,18 @@ export const LoginPage = () => {
     setDisabledButtonFor();
   };
 
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const onClick = (loginParam: Parameters<typeof getLogin>[0]) => () => {
-    dispatch(getLogin(loginParam));
+  const requestStatus = useAppSelector(loginState);
+  const error = useAppSelector(loginError);
+  const onClick = (loginParam: Parameters<typeof getLogin>[0]) => async () => {
+    await dispatch(getLogin(loginParam));
+    if (requestStatus === LoginRequestStatus.FAILURE) {
+      ////////////됐다안됐다가함. .ㅠ
+      infoAlert({ ...error });
+      return;
+    }
+    requestStatus === LoginRequestStatus.SUCCESS && navigate('/forum');
   };
 
   return (
