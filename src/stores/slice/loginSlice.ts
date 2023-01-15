@@ -36,7 +36,11 @@ const initialState: LoginState = {
 export const loginSlice = createSlice({
   name: 'login',
   initialState,
-  reducers: {},
+  reducers: {
+    logout: (state) => {
+      state.loginInfo = {};
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getLogin.pending, (state) => {
@@ -57,6 +61,8 @@ export const loginSlice = createSlice({
       });
   },
 });
+
+export const { logout } = loginSlice.actions;
 export const loginInfo = (state: RootState) => state.login.loginInfo;
 export const loginState = (state: RootState) => state.login.requestStatus;
 export const loginError = (state: RootState) => state.login.error;
