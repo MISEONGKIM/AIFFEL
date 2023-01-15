@@ -28,6 +28,11 @@ export const Search = ({
     [onSearch],
   );
 
+  const onClear = useCallback(() => {
+    onReflash();
+    setSearchText('');
+  }, [onReflash]);
+
   return (
     <div>
       <InputLarge
@@ -37,7 +42,7 @@ export const Search = ({
         onChange={onChange}
       />
       <ButtonBlack text={'검색'} onClick={() => onClick(searchText)} />
-      <ButtonBlack text={'검색초기화'} onClick={() => onReflash()} />
+      <ButtonBlack text={'검색초기화'} onClick={() => onClear()} />
     </div>
   );
 };
