@@ -1,19 +1,19 @@
 import styled from 'styled-components';
 
 export const ForumPagination = ({
+  // page,
   onClick,
 }: {
+  // page: number;
   onClick: (page: number) => void;
 }) => {
   return (
-    <>
-      <Nav>
-        <Button onClick={() => onClick(1)}>{1}</Button>
-        <Button onClick={() => onClick(2)}>{2}</Button>
-        <Button onClick={() => onClick(3)}>{3}</Button>
-        <Button onClick={() => onClick(4)}>{4}</Button>
-      </Nav>
-    </>
+    <Nav>
+      <Button onClick={() => onClick(1)}>{1}</Button>
+      <Button onClick={() => onClick(2)}>{2}</Button>
+      <Button onClick={() => onClick(3)}>{3}</Button>
+      <Button onClick={() => onClick(4)}>{4}</Button>
+    </Nav>
   );
 };
 

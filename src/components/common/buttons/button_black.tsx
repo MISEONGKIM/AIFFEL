@@ -3,11 +3,11 @@ const Button = styled.button`
   backgournd-color: black;
 `;
 export const ButtonBlack = ({
-  disabled,
+  disabled = false,
   text,
   onClick,
 }: {
-  disabled: boolean;
+  disabled?: boolean;
   text: string;
   onClick: () => void;
 }) => (
