@@ -1,3 +1,6 @@
+import { useParams } from 'react-router-dom';
+
 export const ForumDetail = () => {
-  return <div>ForumDetail</div>;
+  const param = useParams();
+  return <div>ForumDetail{param.id}</div>;
 };

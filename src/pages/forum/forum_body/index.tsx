@@ -6,7 +6,7 @@ export const ForumBody = () => {
   return (
     <Routes>
       <Route path="/" element={<ForumMain />} />,
-      <Route path="/{id}" element={<ForumDetail />} />,
+      <Route path="/:id" element={<ForumDetail />} />,
       <Route path="/write" element={<ForumWrite />} />,
     </Routes>
   );
