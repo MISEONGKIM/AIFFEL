@@ -1,5 +1,6 @@
 import {
   createAsyncThunk,
+  createSelector,
   createSlice,
   SerializedError,
 } from '@reduxjs/toolkit';
@@ -49,7 +50,6 @@ export const forumSlice = createSlice({
       })
       .addCase(getForumList.fulfilled, (state, action) => {
         state.requestStatus = RequestStatus.SUCCESS;
-        console.log(action.payload);
         state.forumList = action.payload;
       })
       .addCase(getForumList.rejected, (state, action) => {
@@ -58,7 +58,13 @@ export const forumSlice = createSlice({
       });
   },
 });
-export const forumList = (state: RootState) => state.forum.forumList;
+export const forumList = createSelector(
+  (state: RootState) => state.forum.forumList,
+  (list) =>
+    [...list].sort((a, b) => {
+      return b.id - a.id;
+    }),
+);
 export const forumState = (state: RootState) => state.forum.requestStatus;
 export const forumError = (state: RootState) => state.forum.error;
 

@@ -36,15 +36,13 @@ export const ForumMain = () => {
     setPage(page);
   };
 
-  const initList = useCallback(async () => {
-    const result = await dispatch(getForumList({ _page: page, _limit: 5 }));
-    result.meta.requestStatus === RequestStatus.SUCCESS &&
-      setSearchList(result.payload);
+  useEffect(() => {
+    dispatch(getForumList({ _page: page, _limit: 5 }));
   }, [dispatch, page]);
 
   useEffect(() => {
-    initList();
-  }, [initList]);
+    setSearchList(list);
+  }, [list]);
 
   if (requestStatus === RequestStatus.LOADING) return <Loading />;
   return (
