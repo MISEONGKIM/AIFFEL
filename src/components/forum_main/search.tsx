@@ -1,6 +1,7 @@
 import { useState, useCallback } from 'react';
 import { searchPlaceholder } from '../../constants/placeholder';
 import { infoAlert } from '../../utils/alert';
+import { searchValidation } from '../../utils/validation';
 import { ButtonBlack } from '../common/buttons';
 import { InputLarge } from '../common/inputs';
 export const Search = ({
@@ -19,7 +20,7 @@ export const Search = ({
   );
   const onClick = useCallback(
     (searchText: string) => {
-      if (searchText.length === 0) {
+      if (!searchValidation(searchText)) {
         infoAlert({ message: '검색어를 입력해주세요.' });
         return;
       }

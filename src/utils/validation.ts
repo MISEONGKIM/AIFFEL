@@ -7,3 +7,7 @@ export const emailValidation = (value: string) => {
 export const passwordValidation = (value: string) => {
   return value.length > 9;
 };
+
+export const searchValidation = (value: string) => {
+  return value.length > 0;
+};

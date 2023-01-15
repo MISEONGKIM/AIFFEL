@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 const Button = styled.button`
-  backgournd-color: black;
+  color: black;
 `;
 export const ButtonBlack = ({
   disabled = false,
